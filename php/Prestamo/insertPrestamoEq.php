@@ -1,0 +1,20 @@
+<?php
+require 'mysqli_connect.php';
+// TOMAMOS NUESTRO JSON RECIBIDO DESDE LA PETICION DE ANGULAR JS Y LO LEEMOS
+$data = json_decode(file_get_contents('php://input'), true);
+$articulo_id = $data["articulo_id"];
+$prestamo_id = $data["prestamo_id"];
+$cantidad = $data["cantidad"];
+
+$sql1 = "INSERT INTO `prestamo_articulo`(`articulo_id`, `cantidad`, `prestamo_id`) VALUES (".$articulo_id.",".$cantidad.",".$prestamo_id.")";
+try {
+    $result = $conn->query($sql1);
+    if ($result) {
+        echo json_encode("OK");
+        }  
+    }
+catch(PDOException $e) {
+    echo '{"error":{"text":'. $e->getMessage() .'}}'; 
+}
+
+?>

@@ -602,7 +602,7 @@ app.controller('mainController', function($scope,$mdDialog,$mdToast,$http,$timeo
         });
     };
 
-});
+
 
 // --------------------------------- PROFESOR ------------------------------
 
@@ -655,4 +655,238 @@ $scope.submitProfesor = function () {
                 .hideDelay(3000)
         );
     });
-};
+}
+    ////////////////////////////EQUIPO////////////////////////////
+    $scope.listAlumn = [];
+
+    $scope.selectAlumnosByMateria = function(){
+    $http({
+        method: 'post',
+        url: 'php/Equipo/selectMateriaEq.php',
+        data: {
+            materia: $scope.materiaEq
+        }
+    }).then(function (response) {
+        $scope.$listAlumnoByEq = response.data;
+    }, function (error) {
+        console.log(error);
+    });
+    }
+
+    $scope.changeValueAlumno = function (name, fln, sln, id){
+        //alert(name);
+        //alert(id);
+        $scope.$Alumno.dates.name = name;
+        $scope.$Alumno.dates.fln = fln;
+        $scope.$Alumno.dates.sln = sln;
+        $scope.$Alumno.dates.id = id;
+    }
+
+    $scope.changeValueMateriaEq = function (val,type) {
+        $scope.materiaEq = val;
+        $scope.selectAlumnosByMateria();
+    };
+
+    $scope.submitAlumnEq = function (){
+        $scope.listAlumn.push({id: $scope.$Alumno.dates.id, nombre: $scope.$Alumno.dates.name, apellido1: $scope.$Alumno.dates.fln, apellido2: $scope.$Alumno.dates.sln});
+    }
+
+    $scope.deleteAlumnEq = function (id, n, a1, a2 ,ev){
+        var pos = $scope.listAlumn.findIndex(i => i.id === id);
+        $scope.listAlumn.splice(pos,1);
+    }    
+
+    $scope.selectEquipos= function () {
+        $http({
+            method: 'get',
+            url: 'php/Equipo/select.php'
+        }).then(function (response) {
+            $scope.$listEquipos = response.data;
+            console.log($scope.$listEquipos);
+
+        }, function (error) {
+            console.log(error, 'cant get data.');
+        });
+    };
+
+    $scope.selectEquipos();
+
+        $scope.deleteAlEq = function (alumno,equipo,ev) {
+        $http({
+            method: 'delete',
+            url: 'php/Equipo/delete.php',
+            data: {
+                alumno: alumno,
+                equipo: equipo
+            }
+        }).then(function (response) {
+            console.log(response);
+            $scope.selectEquipos(); //Update the table
+            var pinTo = $scope.getToastPosition();
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent('Operación Exitosa')
+                    .position(pinTo)
+                    .hideDelay(3000)
+            );
+        }, function (error) {
+            var pinTo = $scope.getToastPosition();
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent('Operación Fallida')
+                    .position(pinTo)
+                    .hideDelay(3000)
+            );
+        });
+    };
+
+    $scope.submitNewEq = function (){
+        if ($scope.listAlumn.length != 0){
+            $http({
+            method: 'post',
+            url: 'php/Equipo/insert.php',
+            data: {
+                    id_materia : $scope.materiaEq
+                }
+            }).then(function (response) {
+                console.log(response);
+                $scope.listAlumn.forEach( function(valor, indice, array) {
+                    $http({
+                        method: 'post',url: 'php/Equipo/insertAlEq.php',
+                        data: {alumno_id : valor.id,equipo_id: response.data[0].id}
+                        }).then(function (response) {console.log(response);
+                        }, function (error) {console.log(error);});
+                });
+                $scope.selectEquipos(); //Update the table
+                $scope.listAlumn = [];
+                var pinTo = $scope.getToastPosition();
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent('Operación Exitosa')
+                        .position(pinTo)
+                        .hideDelay(3000)
+                );
+            }, function (error) {
+                console.log(error);
+                var pinTo = $scope.getToastPosition();
+                $mdToast.show(
+                $mdToast.simple()
+                    .textContent('Operación Fallida')
+                    .position(pinTo)
+                    .hideDelay(3000)
+                );
+            });
+        }
+    }
+
+        //////////////////////////PRESTAMO//////////////////////////////
+    $scope.listPrestamo = [];
+    $scope.$cantidad = 0;
+
+    $scope.changeValueArticulo = function(id){
+        $scope.$idArt = id;
+    }
+    $scope.submitPrestamoEq = function (){
+        console.log($scope.$idArt);
+        $scope.listPrestamo.push({clave: $scope.$idArt, id: $scope.ArticulosP, cantidad: $scope.$cantidad});
+    }
+
+    $scope.deleteArticuloEq = function (id){
+        var pos = $scope.listPrestamo.findIndex(i => i.id === id);
+        $scope.listPrestamo.splice(pos,1);
+    }    
+
+    $scope.selectEquiposPre = function () {
+        $http({
+            method: 'get',
+            url: 'php/Prestamo/selectEq.php'
+        }).then(function (response) {
+            $scope.$listEquiposPre = response.data;
+        }, function (error) {
+            console.log(error, 'cant get data.');
+        });
+    };
+    $scope.selectEquiposPre();
+
+    $scope.selectPrestamos= function () {
+        $http({
+            method: 'get',
+            url: 'php/Prestamo/select.php'
+        }).then(function (response) {
+            $scope.$listaPrestamos = response.data;
+            console.log($scope.$listPrestamos);
+        }, function (error) {
+            console.log(error, 'cant get data.');
+        });
+    };
+    $scope.selectPrestamos();
+
+    $scope.deletePrestamoEq = function (idPrestamo,ev) {
+        console.log(idPrestamo);
+        $http({
+            method: 'delete',
+            url: 'php/Prestamo/delete.php',
+            data: {
+                id: idPrestamo
+            }
+        }).then(function (response) {
+            console.log(response);
+            $scope.selectPrestamos(); //Update the table
+            var pinTo = $scope.getToastPosition();
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent('Operación Exitosa')
+                    .position(pinTo)
+                    .hideDelay(3000)
+            );
+        }, function (error) {
+            var pinTo = $scope.getToastPosition();
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent('Operación Fallida')
+                    .position(pinTo)
+                    .hideDelay(3000)
+            );
+        });
+    };
+
+    $scope.submitNewPrestamo = function (){
+        if ($scope.listPrestamo.length != 0){
+            $http({
+            method: 'post',
+            url: 'php/Prestamo/insert.php',
+            data: {
+                    equipo_id : $scope.EquiposPres
+                }
+            }).then(function (response) {
+                console.log(response);
+                $scope.listPrestamo.forEach(function(valor, indice, array) {
+                    $http({
+                        method: 'post',url: 'php/Prestamo/insertPrestamoEq.php',
+                        data: {articulo_id : valor.id,prestamo_id: response.data[0].id, cantidad:$scope.$cantidad}
+                        }).then(function (response) {console.log(response);
+                        }, function (error) {console.log(error);});
+                });
+                $scope.selectPrestamos(); //Update the table
+                $scope.listPrestamo = [];
+                var pinTo = $scope.getToastPosition();
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent('Operación Exitosa')
+                        .position(pinTo)
+                        .hideDelay(3000)
+                );
+            }, function (error) {
+                console.log(error);
+                var pinTo = $scope.getToastPosition();
+                $mdToast.show(
+                $mdToast.simple()
+                    .textContent('Operación Fallida')
+                    .position(pinTo)
+                    .hideDelay(3000)
+                );
+            });
+        }
+    }
+
+});

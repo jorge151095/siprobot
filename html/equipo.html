@@ -1,5 +1,5 @@
     <section class="main row">
-        <article class="col-xs-12 col-sm-8 col-md-8  col-lg-8">
+        <article class="col-xs-12 col-sm-3 col-md-3  col-lg-3">
             <div>
                 <md-content class="md-padding">
                     <div id="popupContainer">
@@ -7,59 +7,65 @@
                             <md-card flex="flex">
                                 <md-toolbar>
                                     <div class="md-toolbar-tools">
-                                        <h2><span>Nuevo Articulo</span></h2>
+                                        <h2><span>Nuevo Equipo</span></h2>
                                     </div>
                                 </md-toolbar>
                                 <md-card-content>
                                     <form name="Form">
-                                        <!--Clave-->
                                         <md-input-container class="md-block">
-                                            <label>Clave</label>
-                                            <input type="text" name="clave" ng-model="$Articulo.dates.clave" placeholder="Clave" required="" />
-                                            <div ng-messages="Form.clave.$error" role="alert" multiple="">
-                                                <div ng-message="required" class="my-message">Ingrese Clave</div>
-                                            </div>
-                                        </md-input-container>
-                                        <!--Descripción-->
-                                        <md-input-container class="md-block">
-                                            <label>Descripción</label>
-                                            <input type="text" name="description" ng-model="$Articulo.dates.description" placeholder="Descripción" required="" />
-                                            <div ng-messages="Form.description.$error" role="alert" multiple="">
-                                                <div ng-message="required" class="my-message">Ingrese descripción </div>
-                                            </div>
-                                        </md-input-container>
-                                        <!--AM-->
-                                        <md-input-container class="md-block">
-                                            <label>Imagen</label>
-                                            <input type="text" name="image" ng-model="$Articulo.dates.image" placeholder="Imagen" required="" />
-                                            <div ng-messages="Form.image.$error" role="alert" multiple="">
-                                                <div ng-message="required" class="my-message">Ingrese imagen</div>
-                                            </div>
-                                        </md-input-container>
-                                        <!--Costo-->
-                                        <md-input-container class="md-block">
-                                            <label>Costo</label>
-                                            <input type="number" name="cost" ng-model="$Articulo.dates.cost" placeholder="Costo" required=""/>
-                                            <div ng-messages="Form.cost.$error" role="alert" multiple="">
-                                                <div ng-message="required" class="my-message">Ingrese Costo</div>
-                                            </div>
-                                        </md-input-container>
-                                        <!--Materia-->
-                                        <md-input-container class="md-block">
-                                            <label>PIFI</label>
-                                            <md-select ng-model="Pifis" placeholder="{{}}">
-                                                <md-option ng-click="changeValuePifis(pifis.id,0)" ng-selected="{{pifis.id == Pifis}}" ng-value="{{pifis.id}}" ng-repeat="pifis in $listPifi" >{{pifis.nombre}}</md-option>
+                                            <label>Materia</label>
+                                            <md-select ng-model="Materias" placeholder="{{}}">
+                                                <md-option ng-click="changeValueMateriaEq(materias.id,0)" ng-selected="{{materias.id == Materias}}" ng-value="{{materias.id}}" ng-repeat="materias in $listMateria" >{{materias.nombre}}</md-option>
                                             </md-select>
                                         </md-input-container>
-                                        <md-input-container class="md-block">
-                                            <label>Stock</label>
-                                            <input type="number" name="stock" ng-model="$Articulo.dates.stock" placeholder="Stock" required=""/>
-                                            <div ng-messages="Form.stock.$error" role="alert" multiple="">
-                                            <div ng-message="required" class="my-message">Ingrese Stock</div>
-                                            </div>
+                                        <md-button ng-disabled="!Form.$valid" ng-click="submitNewEq()" class="md-raised md-primary">Insertar Equipo</md-button>
+                                    </form>
+                                </md-card-content>
+                            </md-card>
+                        </md-content>
+                    </div>
+                </md-content>
+            </div>
+        </article>
+                <article class="col-xs-12 col-sm-9 col-md-9  col-lg-9">
+            <div>
+                <md-content class="md-padding">
+                    <div id="popupContainer">
+                        <md-content ng-cloak="ng-cloak" class="login-form">
+                            <md-card flex="flex">
+                                <md-toolbar>
+                                    <div class="md-toolbar-tools">
+                                        <h2><span>Integrantes</span></h2>
+                                    </div>
+                                </md-toolbar>
+                                <md-card-content>
+                                    <form name="Form">
+                                        <md-input-container style="width:40%">
+                                            <label>Alumnos</label>
+                                            <md-select ng-model="AlumnosEq" placeholder="{{}}">
+                                                <md-option ng-click="changeValueAlumno(alumnoseq.nombre,alumnoseq.apellido1,alumnoseq.apellido2,alumnoseq.id)" ng-selected="{{alumnoseq.id == AlumnosEq}}" ng-value="{{alumnoseq.id}}" ng-repeat="alumnoseq in $listAlumnoByEq" >{{alumnoseq.id}}</md-option>
+                                            </md-select>
                                         </md-input-container>
-                                        <md-button ng-disabled="!Form.$valid" ng-click="submitArticulo()" class="md-raised md-primary">Insertar</md-button>
-                                        <md-button ng-disabled="!Form.$valid" ng-click="updateArticulo()" class="md-raised md-primary">Actualizar</md-button>
+                                        <md-input-container style="width:55%">
+                                            <md-list>
+                                                <!--<md-subheader class="md-no-sticky"><h1>Materias</h1></md-subheader>-->
+                                                <md-list-item class="md-2-line">
+                                                    <div class="md-list-item-text" layout="row">
+                                                        <span flex="">Nombre</span>
+                                                    </div>
+                                                    <ng-md-icon icon="list" aria-label="Lista" class="md-secondary md-hue-3"></ng-md-icon>
+                                                </md-list-item>
+                                                <md-list-item ng-repeat="prd in listAlumn" class="md-2-line">
+                                                    <div class="md-list-item-text" layout="row">
+                                                        <span flex="">{{ prd.nombre }}</span>
+                                                        <span flex="">{{ prd.apellido1 }}</span>
+                                                        <span flex="">{{ prd.apellido2 }}</span>
+                                                    </div>
+                                                    <ng-md-icon icon="delete" ng-click="deleteAlumnEq(prd.id, prd.nomnre, prd.apellido1, prd.apellido2, $event)" aria-label="Eliminar" class="md-secondary md-hue-3"></ng-md-icon>
+                                                </md-list-item>
+                                            </md-list>
+                                        </md-input-container>
+                                        <md-button ng-disabled="!Form.$valid" ng-click="submitAlumnEq()" class="md-raised md-primary">Agregar</md-button>
                                     </form>
                                 </md-card-content>
                             </md-card>
@@ -75,23 +81,19 @@
                         <!--<md-subheader class="md-no-sticky"><h1>Materias</h1></md-subheader>-->
                         <md-list-item class="md-2-line">
                             <div class="md-list-item-text" layout="row">
-                                <span flex=""><h2>Clave</h2></span>
-                                <span flex=""><h2>Descrip</h2></span>
-                                <span flex=""><h2>Costo</h2></span>
-                                <span flex=""><h2>Pifi</h2></span>
-                                <span flex=""><h2>Stock</h2></span>
+                                <span flex=""><h2>Equipo</h2></span>
+                                <span flex=""><h2>Materia</h2></span>
+                                <span flex=""><h2>Cuenta</h2></span>
                             </div>
                             <ng-md-icon icon="list" aria-label="Lista" class="md-secondary md-hue-3"></ng-md-icon>
                         </md-list-item>
-                        <md-list-item ng-repeat="prd in $listArticulo" ng-click="goToArticulo(prd.id, $event)" class="md-2-line">
+                        <md-list-item ng-repeat="prd in $listEquipos" ng-click="goToArticulo(prd.id, $event)" class="md-2-line">
                             <div class="md-list-item-text" layout="row">
-                                <span flex="">{{ prd.clave }}</span>
-                                <span flex="">{{ prd.descripcion }}</span>
-                                <span flex="">{{ prd.costo }}</span>
-                                <span flex="">{{ prd.clavepifi }}</span>
-                                <span flex="">{{ prd.stock}}</span>
+                                <span flex="">{{ prd.equipo_id }}</span>
+                                <span flex="">{{ prd.materia_nombre }}</span>
+                                <span flex="">{{ prd.id }}</span>
                             </div>
-                            <ng-md-icon icon="delete" ng-click="deleteArticulo(prd.id, $event)" aria-label="Eliminar" class="md-secondary md-hue-3"></ng-md-icon>
+                            <ng-md-icon icon="delete" ng-click="deleteAlEq(prd.id, prd.equipo_id,$event)" aria-label="Eliminar" class="md-secondary md-hue-3"></ng-md-icon>
                         </md-list-item>
                     </md-list>
                 </md-content>
