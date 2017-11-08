@@ -17,7 +17,7 @@
 
       if($count == 1)
 	  {
-        header("location: ../indexMain.html");
+        header("location: ../index.html");
       }else
 	  {
          $error = "Credenciales inválidas";
