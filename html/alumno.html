@@ -1,0 +1,95 @@
+    <section class="main row">
+        <article class="col-xs-12 col-sm-8 col-md-8  col-lg-8">
+            <div>
+                <md-content class="md-padding">
+                    <div id="popupContainer">
+                        <md-content ng-cloak="ng-cloak" class="login-form">
+                            <md-card flex="flex">
+                                <md-toolbar>
+                                    <div class="md-toolbar-tools">
+                                        <h2><span>Nuevo Alumno</span></h2>
+                                    </div>
+                                </md-toolbar>
+                                <md-card-content>
+                                    <form name="Form">
+                                        <!--Nombre-->
+                                        <md-input-container class="md-block">
+                                            <label>Nombre</label>
+                                            <input type="text" name="name" ng-model="$Alumno.dates.name" placeholder="Nombre" required="" />
+                                            <div ng-messages="Form.code.$error" role="alert" multiple="">
+                                                <div ng-message="required" class="my-message">Ingrese Nombre</div>
+                                            </div>
+                                        </md-input-container>
+                                        <!--AP-->
+                                        <md-input-container class="md-block">
+                                            <label>Apellido Paterno</label>
+                                            <input type="text" name="FlastName" ng-model="$Alumno.dates.fln" placeholder="Apellido Paterno" required="" />
+                                            <div ng-messages="Form.name.$error" role="alert" multiple="">
+                                                <div ng-message="required" class="my-message">Ingrese Apellido Paterno</div>
+                                            </div>
+                                        </md-input-container>
+                                        <!--AM-->
+                                        <md-input-container class="md-block">
+                                            <label>Apellido Materno</label>
+                                            <input type="text" name="SlastName" ng-model="$Alumno.dates.sln" placeholder="Apellido Materno" required="" />
+                                            <div ng-messages="Form.description.$error" role="alert" multiple="">
+                                                <div ng-message="required" class="my-message">Ingrese Apellido Materno</div>
+                                            </div>
+                                        </md-input-container>
+                                        <!--Count-->
+                                        <md-input-container class="md-block">
+                                            <label>Número de cuenta</label>
+                                            <input type="number" name="numcount" ng-model="$Alumno.dates.id" placeholder="Número de cuenta" required=""/>
+                                            <div ng-messages="Form.PriceSell.$error" role="alert" multiple="">
+                                                <div ng-message="required" class="my-message">Ingrese Cuenta</div>
+                                            </div>
+                                        </md-input-container>
+                                        <!--Materia-->
+                                        <md-input-container class="md-block">
+                                            <label>Materia</label>
+                                            <md-select ng-model="Materias" placeholder="{{}}">
+                                                <md-option ng-click="changeValueMateria(materias.id,0)" ng-selected="{{materias.id == Materias}}" ng-value="{{materias.id}}" ng-repeat="materias in $listMateria" >{{materias.nombre}}</md-option>
+                                            </md-select>
+                                        </md-input-container>
+                                        <md-button ng-disabled="!Form.$valid" ng-click="submitAlumno()" class="md-raised md-primary">Insertar</md-button>
+                                        <md-button ng-disabled="!Form.$valid" ng-click="updateAlumno()" class="md-raised md-primary">Actualizar</md-button>
+                                    </form>
+                                </md-card-content>
+                            </md-card>
+                        </md-content>
+                    </div>
+                </md-content>
+            </div>
+        </article>
+        <article class="col-xs-12 col-sm-12 col-md-12  col-lg-12">
+            <div>
+                <md-content class="md-padding">
+                    <md-list>
+                        <!--<md-subheader class="md-no-sticky"><h1>Materias</h1></md-subheader>-->
+                        <md-list-item class="md-2-line">
+                            <div class="md-list-item-text" layout="row">
+                                <span flex=""><h2>Nombre</h2></span>
+                                <span flex=""><h2>Apellido P</h2></span>
+                                <span flex=""><h2>Apellido M</h2></span>
+                                <span flex=""><h2>Cuenta</h2></span>
+                                <span flex=""><h2>Materia</h2></span>
+                            </div>
+                            <ng-md-icon icon="list" aria-label="Lista" class="md-secondary md-hue-3"></ng-md-icon>
+                        </md-list-item>
+                        <md-list-item ng-repeat="prd in $listAlumno" ng-click="goToAlumno(prd.id, $event)" class="md-2-line">
+                            <div class="md-list-item-text" layout="row">
+                                <span flex="">{{ prd.nombre }}</span>
+                                <span flex="">{{ prd.apellido1 }}</span>
+                                <span flex="">{{ prd.apellido2 }}</span>
+                                <span flex="">{{ prd.id }}</span>
+                                <span flex="">{{ prd.materia}}</span>
+                            </div>
+                            <ng-md-icon icon="delete" ng-click="deleteAlumno(prd.id, $event)" aria-label="Eliminar" class="md-secondary md-hue-3"></ng-md-icon>
+                        </md-list-item>
+                    </md-list>
+                </md-content>
+            </div>
+        </article>
+    </section>
+
+

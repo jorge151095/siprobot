@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html ng-app="Labo">
+  <head>
+     <meta charset="UTF-8">
+    <title>Laboratorio de Robótica</title>
+    <link rel="stylesheet" href="css/angular-material.css"/>
+    <!--Angular Material requires Angular.js Libraries-->
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-animate.min.js"></script>
+    <script src="js/angular-aria.min.js"></script>
+    <script src="js/angular-messages.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="js/angular-sanitize.min.js"></script>
+    <script src="js/angular-resource.min.js"></script>
+    <!-- Angular Material Library -->
+    <script src="js/angular-material.min.js"></script>
+    <!--Bootstrap-->
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="js/ui-bootstrap-tpls-2.5.0.min.js"></script>
+  	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css"/>
+    <!--Icons-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.1/angular-material-icons.min.js"></script>
+  </head>
+  <body>
+  	<header>
+	<nav class="navbar navbar-default">
+	    <div class="container">
+	      <div class="navbar-header">
+	        <a class="navbar-brand" href="/">SIPROBOT UAEMex</a>
+	      </div>
+
+	      <ul class="nav navbar-nav navbar-right">
+	        <li><a href="#menu"><i class="fa fa-home"></i>Principal</a></li>
+	        <li class="dropdown">
+	        	<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Módulos<span class="caret"></span></a>
+	        	<ul class="dropdown-menu"> 
+		        	<li><a href="#alumno">Alumno</a></li>
+		        	<li><a href="#materia">Materia</a></li>
+		        	<li><a href="#equipo">Equipo</a></li>
+		        	<li><a href="#profesor">Profesor</a></li>
+	        	</ul>
+	        </li>
+	        <li><a href="#inventario"><i class="fa fa-shield"></i> Inventario</a></li>
+	        <li><a href="#prestamos"><i class="fa fa-comment"></i> Prestamos </a></li>
+	        <li><a href="#ayuda"><i class="fa fa-comment"></i> Ayuda</a></li>
+	        <li><a href="#acerca"><i class="fa fa-comment"></i> Acerca</a></li>
+	      </ul>
+	    </div>
+ 	</nav>
+  	</header>
+  		<div ng-controller="mainController">
+	    	<div id="main">
+		    	<div ng-view></div>
+		    <div>
+	    </div>
+  </body>
+  <script src="js/controller.js"></script>
+</html>
